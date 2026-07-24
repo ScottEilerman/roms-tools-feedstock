@@ -1,5 +1,5 @@
 {% set name = "roms-tools" %}
-{% set version = "3.7.0" %}
+{% set version = "4.0.0" %}
 {% set python_min = "3.12" %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/roms_tools-{{ version }}.tar.gz
-  sha256: 62d62e98a4326a2427d024e66d8bf3158ed5b2615185f9cf56f457ad3368c7af
+  sha256: 7045c75aff120446e2763e121cc99f63ccbbff1483aa60a829067ca65e962581
 
 build:
   noarch: python
@@ -29,6 +29,7 @@ requirements:
     - numpy >2.0,<2.3
     - pooch
     - matplotlib-base
+    - matplotlib <3.11
     - cartopy
     - packaging
     - scipy >=1.18.0
@@ -38,7 +39,7 @@ requirements:
     - pyamg
     - bottleneck
     - regionmask >=0.11.0
-    - xgcm >=0.9.0,<0.10.0
+    - xgcm >=0.10.0,<0.10.0
     - numba >=0.61.2
     - pydantic >2,<3
     - dask
