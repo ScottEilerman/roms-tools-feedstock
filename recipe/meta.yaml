@@ -39,7 +39,7 @@ requirements:
     - pyamg
     - bottleneck
     - regionmask >=0.11.0
-    - xgcm >=0.10.0,<0.10.0
+    - xgcm >=0.10.0,<0.11.0
     - numba >=0.61.2
     - pydantic >2,<3
     - dask
