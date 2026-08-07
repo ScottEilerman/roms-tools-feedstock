@@ -3,6 +3,10 @@ About roms-tools-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/roms-tools-feedstock/blob/main/LICENSE.txt)
 
+
+About roms-tools
+----------------
+
 Home: https://github.com/CWorthy-ocean/roms-tools
 
 Package license: Apache-2.0
@@ -12,6 +16,23 @@ Summary: Tools for creating input files for UCLA-ROMS simulations
 **ROMS-Tools** is a Python package designed for creating the input files necessary to run a UCLA-ROMS simulation, with or without MARBL biogeochemistry.
 The package simplifies the process of generating grid, tidal forcing, surface forcing, initial conditions, boundary forcing, river forcing, carbon dioxide removal (CDR) forcing, and nesting.
 In addition to input generation, ROMS-Tools includes utilities for postprocessing and analysis, particularly for CDR monitoring, reporting, and verification (MRV).
+
+
+About roms-tools-slim
+---------------------
+
+Home: https://github.com/CWorthy-ocean/roms-tools
+
+Package license: Apache-2.0
+
+Summary: Minimal build of ROMS-Tools: core input-file generation for UCLA-ROMS/MARBL, without the xesmf/cloud-streaming/movie extras
+
+**ROMS-Tools** is a Python package designed for creating the input files necessary to run a UCLA-ROMS simulation, with or without MARBL biogeochemistry.
+The package simplifies the process of generating grid, tidal forcing, surface forcing, initial conditions, boundary forcing, river forcing, carbon dioxide removal (CDR) forcing, and nesting.
+In addition to input generation, ROMS-Tools includes utilities for postprocessing and analysis, particularly for CDR monitoring, reporting, and verification (MRV).
+
+`roms-tools-slim` installs only the core scientific-computing dependencies. Install `roms-tools` for the full
+feature set (xesmf regridding, gcsfs/copernicusmarine cloud data streaming, CDR-monitoring movie export).
 
 
 Current build status
@@ -34,6 +55,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-roms--tools-green.svg)](https://anaconda.org/conda-forge/roms-tools) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/roms-tools.svg)](https://anaconda.org/conda-forge/roms-tools) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/roms-tools.svg)](https://anaconda.org/conda-forge/roms-tools) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/roms-tools.svg)](https://anaconda.org/conda-forge/roms-tools) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-roms--tools--slim-green.svg)](https://anaconda.org/conda-forge/roms-tools-slim) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/roms-tools-slim.svg)](https://anaconda.org/conda-forge/roms-tools-slim) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/roms-tools-slim.svg)](https://anaconda.org/conda-forge/roms-tools-slim) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/roms-tools-slim.svg)](https://anaconda.org/conda-forge/roms-tools-slim) |
 
 Installing roms-tools
 =====================
@@ -45,31 +67,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `roms-tools` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
-conda install roms-tools
+conda install roms-tools roms-tools-slim
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
-mamba install roms-tools
+mamba install roms-tools roms-tools-slim
 ```
 
-It is possible to list all of the versions of `roms-tools` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add roms-tools roms-tools-slim
+# for installing globally
+pixi global install roms-tools roms-tools-slim
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `roms-tools` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search roms-tools --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search roms-tools --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search roms-tools --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -81,6 +145,8 @@ mamba repoquery whoneeds roms-tools --channel conda-forge
 # List dependencies of `roms-tools`:
 mamba repoquery depends roms-tools --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
