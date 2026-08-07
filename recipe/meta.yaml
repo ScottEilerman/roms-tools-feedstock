@@ -12,96 +12,62 @@ source:
 
 build:
   noarch: python
-  number: 1
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
 
-outputs:
-  - name: roms-tools-slim
-    build:
-      noarch: python
-      # plain `python` (not the PYTHON jinja var, which is undefined when
-      # conda-build finalizes per-output metadata in multi-output recipes);
-      # the host env's python is first on PATH here, so this is equivalent.
-      script: python -m pip install . -vv --no-deps --no-build-isolation
-    requirements:
-      host:
-        - python {{ python_min }}
-        - setuptools >=61.0.0
-        - wheel
-        - setuptools-scm >=8.0
-        - check-manifest
-        - pip
-      run:
-        - python >={{ python_min }}
-        - xarray >=2022.6.0,<2025.8.0
-        - numpy >2.0,<2.3
-        - pooch
-        - matplotlib-base <3.11
-        - cartopy
-        - packaging
-        - scipy >=1.18.0
-        - gcm_filters >=0.5.1
-        - netcdf4
-        - pyyaml
-        - pyamg
-        - bottleneck
-        - regionmask >=0.11.0
-        - xgcm >0.10.0,<0.11.0
-        - gsw
-        - numba >=0.61.2
-        - pydantic >2,<3
-        - dask
-        - h5netcdf
-      run_constrained:
-        # keep the GUI matplotlib metapackage out of the solve; only constrain it if
-        # something else in the environment pulls it in.
-        - matplotlib <3.11
-    test:
-      requires:
-        - python {{ python_min }}
-        - pip
-      imports:
-        - roms_tools
-      commands:
-        - pip check
-    about:
-      home: https://github.com/CWorthy-ocean/roms-tools
-      summary: "Minimal build of ROMS-Tools: core input-file generation for UCLA-ROMS/MARBL, without the xesmf/cloud-streaming/movie extras"
-      license: Apache-2.0
-      license_file: LICENSE
-      description: |
-        **ROMS-Tools** is a Python package designed for creating the input files necessary to run a UCLA-ROMS simulation, with or without MARBL biogeochemistry.
-        The package simplifies the process of generating grid, tidal forcing, surface forcing, initial conditions, boundary forcing, river forcing, carbon dioxide removal (CDR) forcing, and nesting.
-        In addition to input generation, ROMS-Tools includes utilities for postprocessing and analysis, particularly for CDR monitoring, reporting, and verification (MRV).
+requirements:
+  host:
+    - python {{ python_min }}
+    - setuptools >=61.0.0
+    - wheel
+    - setuptools-scm >=8.0
+    - check-manifest
+    - pip
+  run:
+    - python >={{ python_min }}
+    - xarray >=2022.6.0,<2025.8.0
+    - numpy >2.0,<2.3
+    - pooch
+    - matplotlib-base <3.11
+    - cartopy
+    - packaging
+    - scipy >=1.18.0
+    - gcm_filters >=0.5.1
+    - netcdf4
+    - pyyaml
+    - pyamg
+    - bottleneck
+    - regionmask >=0.11.0
+    - xgcm >0.10.0,<0.11.0
+    - gsw
+    - numba >=0.61.2
+    - pydantic >2,<3
+    - dask
+    - h5netcdf
+    # full feature set beyond the PyPI core deps: xesmf regridding (conda-only),
+    # cloud data streaming, CDR-monitoring movie export
+    - xesmf >=0.8.8
+    - gcsfs
+    - copernicusmarine
+    - zarr
+    - imageio-ffmpeg
+    # notebooks extra: bundled so the conda package works in Jupyter out of the box
+    - jupyter
+    - gdown
+    - ipykernel
+  run_constrained:
+    # keep the GUI matplotlib metapackage out of the solve; only constrain it if
+    # something else in the environment pulls it in.
+    - matplotlib <3.11
 
-        `roms-tools-slim` installs only the core scientific-computing dependencies. Install `roms-tools` for the full
-        feature set (xesmf regridding, gcsfs/copernicusmarine cloud data streaming, CDR-monitoring movie export).
-
-  - name: roms-tools
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }}
-        - {{ pin_subpackage('roms-tools-slim', exact=True) }}
-        - xesmf >=0.8.8
-        - gcsfs
-        - copernicusmarine
-        - zarr
-        - imageio-ffmpeg
-        # notebooks extra: bundled so the full conda package works in Jupyter out of the box
-        - jupyter
-        - gdown
-        - ipykernel
-    test:
-      requires:
-        - python {{ python_min }}
-        - pip
-      imports:
-        - roms_tools
-      commands:
-        - pip check
+test:
+  requires:
+    - python {{ python_min }}
+    - pip
+  imports:
+    - roms_tools
+  commands:
+    - pip check
 
 about:
   home: https://github.com/CWorthy-ocean/roms-tools
