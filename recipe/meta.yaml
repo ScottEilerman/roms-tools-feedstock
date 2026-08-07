@@ -18,7 +18,10 @@ outputs:
   - name: roms-tools-slim
     build:
       noarch: python
-      script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+      # plain `python` (not the PYTHON jinja var, which is undefined when
+      # conda-build finalizes per-output metadata in multi-output recipes);
+      # the host env's python is first on PATH here, so this is equivalent.
+      script: python -m pip install . -vv --no-deps --no-build-isolation
     requirements:
       host:
         - python {{ python_min }}
